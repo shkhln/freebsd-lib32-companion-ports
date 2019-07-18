@@ -1083,6 +1083,7 @@
     SUBDIR += lib32-gettext-runtime
     SUBDIR += lib32-glib20
     SUBDIR += lib32-libffi
+    SUBDIR += lib32-libinotify
     SUBDIR += lib32-libpciaccess
     SUBDIR += lib32-libpthread-stubs
     SUBDIR += lib32-libunistring
