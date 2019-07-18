@@ -24,7 +24,7 @@ BUILD_DEPENDS=	${LOCALBASE}/bin/flex:textproc/flex \
 LIB_DEPENDS=	libFAudio.so:audio/faudio \
 		libxml2.so:textproc/libxml2
 
-USES=		bison desktop-file-utils gmake localbase shebangfix tar:xz
+USES=		bison desktop-file-utils gmake lib32 localbase shebangfix tar:xz
 
 CONFLICTS_INSTALL=	wine-[0-9]* i386-wine-[0-9]* i386-wine-devel-[0-9]*
 
@@ -45,7 +45,7 @@ CONFIGURE_ARGS+=--verbose \
 		--without-tiff \
 		--without-udev
 CONFIGURE_ENV=	CPPBIN="${CPP}" FLEX="${LOCALBASE}/bin/flex"
-WINELIBDIR?=	${PREFIX}/lib
+WINELIBDIR?=	${LIBDIR}
 .if !defined(USE_LDCONFIG32)
 USE_LDCONFIG=	${WINELIBDIR} ${WINELIBDIR}/wine
 .endif
@@ -57,7 +57,11 @@ SUB_FILES=	pkg-message
 PORTDATA=	wine.inf
 
 OPTIONS_DEFINE=	CUPS DOCS DOSBOX GCC GNUTLS HAL LDAP LIBXSLT MPG123 OPENAL STAGING V4L VKD3D VULKAN WINEMAKER X11 GECKO MONO
+.if !defined(USE_LIB32)
 OPTIONS_DEFAULT=GCC GNUTLS X11
+.else
+OPTIONS_DEFAULT=GNUTLS X11
+.endif
 OPTIONS_SUB=	yes
 
 DOSBOX_DESC=	Use DOSBox to run MS-DOS programs
@@ -134,7 +138,7 @@ X11_LIB_DEPENDS=	libfontconfig.so:x11-fonts/fontconfig \
 .include <bsd.port.pre.mk>
 .endif
 
-.if ${ARCH} == amd64
+.if ${ARCH} == amd64 && !defined(USE_LIB32)
 # Wine is composed of three parts:
 #  - wine (aka this port) is the 32-bit component and runs 32-bit programs (on FreeBSD/i386)
 #  - wine64 (aka this part of this port) is the 64-bit component and runs 64-bit programs
