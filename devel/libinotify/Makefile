@@ -15,7 +15,7 @@ LICENSE_FILE=	${WRKSRC}/LICENSE
 GNU_CONFIGURE=	yes
 INSTALL_TARGET=	install-strip
 USE_LDCONFIG=	yes
-USES=		autoreconf libtool
+USES=		autoreconf lib32 libtool
 
 GH_ACCOUNT=	${PORTNAME}-kqueue
 GH_PROJECT=	${PORTNAME}-kqueue
