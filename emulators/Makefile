@@ -62,6 +62,7 @@
     SUBDIR += kcemu
     SUBDIR += klh10
     SUBDIR += lib32-tpm-emulator
+    SUBDIR += lib32-wine-devel
     SUBDIR += lib765
     SUBDIR += libdsk
     SUBDIR += libretro-ppsspp
