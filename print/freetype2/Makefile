@@ -126,7 +126,7 @@ post-configure:
 		${MAKE_CMD} ${MAKE_FLAGS} ${MAKEFILE} ${MAKE_ARGS} setup)
 
 post-install:
-	@${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libfreetype.so.*
+	@${STRIP_CMD} ${STAGEDIR}${LIBDIR}/libfreetype.so.*
 
 post-install-DOCS-on:
 	(cd ${WRKSRC}/docs && ${COPYTREE_SHARE} "${PORTDOCS}" ${STAGEDIR}${DOCSDIR})

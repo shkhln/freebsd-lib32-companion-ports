@@ -30,7 +30,7 @@ CONFIGURE_ARGS=	--disable-guile \
 		--enable-local-libopts \
 		--with-system-priority-file=${PREFIX}/etc/gnutls/default-priorities \
 		--with-default-trust-store-file=${LOCALBASE}/share/certs/ca-root-nss.crt \
-		--with-trousers-lib=${LOCALBASE}/lib/libtspi.so.1 \
+		--with-trousers-lib=${LIBDIR}/libtspi.so.1 \
 		AUTOGEN=false \
 		ac_cv_type_max_align_t=yes
 MAKE_ENV=	MAKEINFOFLAGS=--no-split

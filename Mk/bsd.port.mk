@@ -1367,6 +1367,10 @@ PKGCOMPATDIR?=		${LOCALBASE}/lib/compat/pkg
 .sinclude "${odir}/Mk/bsd.overlay.mk"
 .endfor
 
+.if defined(USE_LIB32)
+.include "${PORTSDIR}/Mk/Uses/lib32.mk"
+.endif
+
 .if defined(USE_XORG) && (!defined(USES) || !${USES:Mxorg})
 DEV_WARNING+=		"Using USE_XORG alone is deprecated, please use USES=xorg"
 USES+=	xorg

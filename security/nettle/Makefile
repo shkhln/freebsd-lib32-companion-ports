@@ -44,7 +44,7 @@ post-patch:
 .endif
 
 post-install:
-	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/lib*.so
+	${STRIP_CMD} ${STAGEDIR}${LIBDIR}/lib*.so
 
 post-install-DOCS-on:
 	@${MKDIR} ${STAGEDIR}${DOCSDIR}

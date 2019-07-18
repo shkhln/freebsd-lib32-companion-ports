@@ -41,6 +41,7 @@
     SUBDIR += iconv-extra
     SUBDIR += iconv-rfc1345
     SUBDIR += ish
+    SUBDIR += lib32-libiconv
     SUBDIR += libb64
     SUBDIR += libiconv
     SUBDIR += libticonv

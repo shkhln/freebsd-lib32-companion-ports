@@ -42,6 +42,13 @@ GROUPS=		_tss
 OPTIONS_DEFINE=	DEBUG
 DEBUG_CONFIGURE_ENABLE=	debug
 
+.if defined(USE_LIB32)
+post-patch:
+	${REINPLACE_CMD} -e 's|-L$${ICONV_PREFIX}/lib|-L$${ICONV_PREFIX}/lib32|g'         ${WRKSRC}/src/tspi/Makefile.am
+	${REINPLACE_CMD} -e 's|$${LOCALBASE}/lib/tddl_emu|$${LOCALBASE}/lib32/tddl_emu|g' ${WRKSRC}/src/tcsd/Makefile.am
+	${REINPLACE_CMD} -e 's|OPENSSL_LIB_DIR="$$withval/lib"|OPENSSL_LIB_DIR="$$withval/lib32"|g' ${WRKSRC}/configure.ac
+.endif
+
 post-install:
 	${INSTALL_DATA} \
 	    ${WRKSRC}/dist/tcsd.conf ${STAGEDIR}${PREFIX}/etc/tcsd.conf.sample

@@ -40,6 +40,9 @@ post-patch:
 .if exists(/usr/lib/libtermcapw.so)
 	@${REINPLACE_CMD} 's|-ltermcap|-ltermcapw|g' ${WRKSRC}/configure
 .endif
+.if defined(USE_LIB32)
+	@${REINPLACE_CMD} -e '/SHOBJ_LDFLAGS = / s| = |&-m32 |' ${WRKSRC}/shlib/Makefile.in
+.endif
 
 post-install:
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libhistory.so.8.0 ${STAGEDIR}${PREFIX}/lib/libreadline.so.8.0

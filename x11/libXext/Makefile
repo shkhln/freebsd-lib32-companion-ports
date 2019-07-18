@@ -14,6 +14,7 @@ LICENSE_FILE=	${WRKSRC}/COPYING
 
 USES=		cpe xorg xorg-cat:lib
 USE_XORG=	x11 xau xorgproto
+
 CPE_VENDOR=	x
 CPE_PRODUCT=	libxext
 

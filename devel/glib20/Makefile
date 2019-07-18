@@ -92,6 +92,9 @@ post-patch:
 	@${REINPLACE_CMD} -e 's|inotify_support=yes|inotify_support=no| ; \
 		s|-Werror|| ; \
 		s|#define HAVE_SYS_INOTIFY_H 1||' ${WRKSRC}/configure
+.if defined(USE_LIB32)
+	@${REINPLACE_CMD} -e 's|shlibpath_var=LD_LIBRARY_PATH|shlibpath_var=LD_32_LIBRARY_PATH|' ${WRKSRC}/configure
+.endif
 
 do-build-MANPAGES-on:
 .for m in glib gio gobject
