@@ -80,7 +80,7 @@ RUN_DEPENDS:=	${RUN_DEPENDS:C!${LOCALBASE}/lib/lib(GL|EGL|GLESv2).so:graphics/me
 .  endif
 
 .  for flags in CFLAGS CPPFLAGS
-${flags}:=	${CFLAGS:S|${LOCALBASE}/lib|${LOCALBASE}/lib32|g} -m32
+${flags}:=	${${flags}:S|${LOCALBASE}/lib|${LOCALBASE}/lib32|g} -m32
 .  endfor
 
 .  if !defined(USE_LDCONFIG) || ${USE_LDCONFIG} == yes
