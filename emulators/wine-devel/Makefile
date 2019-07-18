@@ -61,20 +61,7 @@ SUB_FILES=	pkg-message
 PORTDATA=	wine.inf
 
 OPTIONS_DEFINE=	CUPS DOCS DOSBOX GCC GNUTLS HAL LDAP LIBXSLT MPG123 OPENAL STAGING V4L VKD3D VULKAN WINEMAKER X11 GECKO MONO
-.if !defined(USE_LIB32)
 OPTIONS_DEFAULT=GCC GNUTLS X11
-.else
-OPTIONS_DEFAULT=GNUTLS X11
-EXTRA_PATCHES= 	${PATCHDIR}/extra-patch-tools_winegcc_winegcc.c
-#~ LLD_UNSAFE=	yes
-
-LDFLAGS+=	-fuse-ld=/usr/local/bin/ld
-BINARY_ALIAS+=	ld=/usr/local/bin/ld
-LD=		/usr/local/bin/ld
-CONFIGURE_ENV+=	LD=/usr/local/bin/ld
-MAKE_ENV+=	LD=/usr/local/bin/ld
-
-.endif
 OPTIONS_SUB=	yes
 
 DOSBOX_DESC=	Use DOSBox to run MS-DOS programs
