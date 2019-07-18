@@ -11,7 +11,7 @@ COMMENT=	Free library for arbitrary precision arithmetic
 
 LICENSE=	LGPL3
 
-USES=		libtool makeinfo tar:xz
+USES=		lib32 libtool makeinfo tar:xz
 
 OPTIONS_DEFINE=	CPU_OPTS
 CPU_OPTS_DESC=	Enable assembly optimizations for your CPU

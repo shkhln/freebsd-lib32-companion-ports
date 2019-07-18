@@ -14,7 +14,7 @@ LICENSE_FILE=	${WRKSRC}/COPYRIGHT
 
 LIB_DEPENDS=	libjbig.so:graphics/jbigkit
 
-USES=		cpe jpeg libtool pathfix
+USES=		cpe jpeg lib32 libtool pathfix
 CPE_PRODUCT=	libtiff
 CPE_VERSION=	${DISTVERSION:C/[a-z]+//}
 CPE_UPDATE=	${DISTVERSION:C/[0-9.]+//}

@@ -23,7 +23,7 @@ CONFIGURE_ARGS=	--disable-nls --enable-debug=no \
 MAKE_ENV=	exampledir=${STAGEDIR}${EXAMPLESDIR}
 INSTALL_TARGET=	install-strip
 
-USES=		gmake libtool pathfix pkgconfig
+USES=		gmake lib32 libtool pathfix pkgconfig
 USE_LDCONFIG=	yes
 
 TEST_TARGET=	check

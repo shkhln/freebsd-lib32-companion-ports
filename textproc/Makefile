@@ -344,6 +344,8 @@
     SUBDIR += lasem
     SUBDIR += latex-service
     SUBDIR += latex2html
+    SUBDIR += lib32-expat2
+    SUBDIR += lib32-libxml2
     SUBDIR += libabw
     SUBDIR += libcrm114
     SUBDIR += libcroco

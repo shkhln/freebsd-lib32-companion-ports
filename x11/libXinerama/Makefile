@@ -12,8 +12,10 @@ COMMENT=	X11 Xinerama library
 
 LICENSE=	MIT
 
-USES=		cpe xorg xorg-cat:lib
+USES=		cpe lib32 xorg xorg-cat:lib
+USE_LDCONFIG=	yes
 USE_XORG=	x11 xext xorgproto
+
 CPE_PRODUCT=	libxinerama
 CPE_VENDOR=	x
 

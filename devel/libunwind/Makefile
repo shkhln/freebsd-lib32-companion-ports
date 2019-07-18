@@ -20,7 +20,7 @@ OPTIONS_SUB=	yes
 DOCS_CONFIGURE_ON=	ac_cv_path_LATEX2MAN=${TRUE}
 DOCS_CONFIGURE_OFF=	--disable-documentation
 
-USES=		libtool pathfix pkgconfig
+USES=		lib32 libtool pathfix pkgconfig
 USE_LDCONFIG=	yes
 GNU_CONFIGURE=	yes
 INSTALL_TARGET=	install-strip

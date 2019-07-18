@@ -11,8 +11,10 @@ COMMENT=	X Vidmode Extension
 
 LICENSE=	MIT
 
-USES=		cpe xorg xorg-cat:lib
+USES=		lib32 cpe xorg xorg-cat:lib
+USE_LDCONFIG=	yes
 USE_XORG=	xorgproto x11 xext
+
 CPE_PRODUCT=	libxxf86vm
 CPE_VENDOR=	x
 

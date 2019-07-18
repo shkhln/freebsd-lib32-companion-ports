@@ -12,7 +12,7 @@ COMMENT=	This library provides weak aliases for pthread functions
 LICENSE=	MIT
 LICENSE_FILE=	${WRKSRC}/COPYING
 
-USES=		pathfix tar:bzip2
+USES=		lib32 pathfix tar:bzip2
 GNU_CONFIGURE=	yes
 NO_ARCH=	yes
 

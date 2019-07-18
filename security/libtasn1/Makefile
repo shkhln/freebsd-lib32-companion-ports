@@ -14,7 +14,7 @@ LICENSE=	LGPL21+ GPLv3
 LICENSE_COMB=	multi
 LICENSE_FILE=	${WRKSRC}/LICENSE
 
-USES=		cpe libtool pathfix pkgconfig
+USES=		cpe lib32 libtool pathfix pkgconfig
 USE_CSTD=	c99
 USE_LDCONFIG=	yes
 GNU_CONFIGURE=	yes

@@ -11,7 +11,7 @@ COMMENT=	Unit test framework for C
 LICENSE=	LGPL21
 LICENSE_FILE=	${WRKSRC}/COPYING.LESSER
 
-USES=		autoreconf libtool makeinfo pathfix pkgconfig
+USES=		autoreconf lib32 libtool makeinfo pathfix pkgconfig
 
 CONFIGURE_ENV=	ac_cv_path_AWK_PATH=${AWK}
 GNU_CONFIGURE=	yes

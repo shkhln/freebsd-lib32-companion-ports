@@ -101,6 +101,7 @@
     SUBDIR += latex2rtf
     SUBDIR += latexdiff
     SUBDIR += lgrind
+    SUBDIR += lib32-freetype2
     SUBDIR += libharu
     SUBDIR += libijs
     SUBDIR += libmspub01

@@ -58,6 +58,7 @@
     SUBDIR += jzintv
     SUBDIR += kcemu
     SUBDIR += klh10
+    SUBDIR += lib32-tpm-emulator
     SUBDIR += lib765
     SUBDIR += libdsk
     SUBDIR += libspectrum

@@ -11,7 +11,7 @@ DISTNAME=	glu-${PORTVERSION}
 MAINTAINER=	x11@FreeBSD.org
 COMMENT=	OpenGL utility library
 
-USES=		gl libtool pathfix pkgconfig tar:xz xorg
+USES=		gl lib32 libtool pathfix pkgconfig tar:xz xorg
 GNU_CONFIGURE=	yes
 CONFIGURE_ARGS=	--disable-static
 INSTALL_TARGET=	install-strip

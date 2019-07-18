@@ -12,7 +12,8 @@ COMMENT=	X Composite extension library
 LICENSE=	MIT
 LICENSE_FILE=	${WRKSRC}/COPYING
 
-USES=		xorg xorg-cat:lib
+USES=		lib32 xorg xorg-cat:lib
+USE_LDCONFIG=	yes
 USE_XORG=	x11 xfixes xext xorgproto
 
 INSTALL_TARGET=	install-strip

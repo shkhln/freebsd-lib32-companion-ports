@@ -22,7 +22,7 @@ LICENSE_FILE_FTL=	${WRKSRC}/docs/FTL.TXT
 LICENSE_FILE_GPLv2+ =	${WRKSRC}/docs/GPLv2.TXT
 LICENSE_PERMS_FTL=	dist-mirror dist-sell pkg-mirror pkg-sell auto-accept
 
-USES=		cpe gmake libtool tar:xz
+USES=		cpe gmake lib32 libtool tar:xz
 MAKE_ENV=	TOP=""
 USE_LDCONFIG=	yes
 GNU_CONFIGURE=	yes
@@ -123,7 +123,7 @@ post-configure:
 		${MAKE_CMD} ${MAKE_FLAGS} ${MAKEFILE} ${MAKE_ARGS} setup)
 
 post-install:
-	@${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libfreetype.so.*
+	@${STRIP_CMD} ${STAGEDIR}${LIBDIR}/libfreetype.so.*
 
 post-install-DOCS-on:
 	(cd ${WRKSRC}/docs && ${COPYTREE_SHARE} "${PORTDOCS}" ${STAGEDIR}${DOCSDIR})

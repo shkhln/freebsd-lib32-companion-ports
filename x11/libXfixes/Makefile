@@ -11,8 +11,10 @@ COMMENT=	X Fixes extension library
 
 LICENSE=	MIT
 
-USES=		cpe xorg xorg-cat:lib
+USES=		cpe lib32 xorg xorg-cat:lib
+USE_LDCONFIG=	yes
 USE_XORG=	x11 xorgproto
+
 CPE_PRODUCT=	libxfixes
 CPE_VENDOR=	x
 

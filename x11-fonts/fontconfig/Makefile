@@ -14,7 +14,8 @@ COMMENT=	XML-based font configuration API for X Windows
 LICENSE=	MIT
 LICENSE_FILE=	${WRKSRC}/COPYING
 
-USES=		gperf tar:bzip2
+USES=		gperf lib32 tar:bzip2
+USE_LDCONFIG= yes
 
 .if !defined(REFERENCE_PORT)
 

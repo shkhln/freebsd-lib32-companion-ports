@@ -15,17 +15,22 @@ LICENSE=	GPLv2
 
 LIB_DEPENDS=	libgmp.so:math/gmp
 
-USES=		cmake
+USES=		cmake lib32
 USE_RC_SUBR=	tpmd
 CONFIGURE_ENV=	PREFIX="${PREFIX}"
 CMAKE_ARGS=	-DTPM_INCLUDE_DIRS:STRING="${LOCALBASE}/include" \
-		-DTDDL_LIBRARY_DIRS:STRING="${LOCALBASE}/lib/tddl_emu" \
-		-DTPM_LIBRARY_DIRS:STRING="${LOCALBASE}/lib"
+		-DTDDL_LIBRARY_DIRS:STRING="${LIBDIR}/tddl_emu" \
+		-DTPM_LIBRARY_DIRS:STRING="${LIBDIR}"
 USE_LDCONFIG=	yes
 USERS=		_tss
 GROUPS=		_tss
 SUB_LIST=	USERS="${USERS}" GROUPS="${GROUPS}"
 PLIST_SUB=	USERS="${USERS}" GROUPS="${GROUPS}"
+
+post-patch:
+.if defined(USE_LIB32)
+	${REINPLACE_CMD} -e 's|DESTINATION lib/tddl_emu|DESTINATION lib32/tddl_emu|g' ${WRKSRC}/tddl/CMakeLists.txt
+.endif
 
 post-install:
 	@${MKDIR} ${STAGEDIR}/var/run/tpm

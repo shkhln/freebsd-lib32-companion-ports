@@ -21,7 +21,7 @@ LIB_DEPENDS=	libgmp.so:math/gmp
 
 OPTIONS_DEFINE=	DOCS EXAMPLES
 
-USES=		compiler:c11 gmake localbase makeinfo pathfix
+USES=		compiler:c11 gmake lib32 localbase makeinfo pathfix
 
 CONFIGURE_ARGS=	--enable-shared
 CONFIGURE_ENV=	M4="/usr/bin/m4 -g"
@@ -45,7 +45,7 @@ post-patch:
 .endif
 
 post-install:
-	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/lib*.so
+	${STRIP_CMD} ${STAGEDIR}${LIBDIR}/lib*.so
 
 post-install-DOCS-on:
 	@${MKDIR} ${STAGEDIR}${DOCSDIR}

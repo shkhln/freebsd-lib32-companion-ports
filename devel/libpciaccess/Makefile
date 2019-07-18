@@ -13,9 +13,10 @@ LICENSE_FILE=	${WRKSRC}/COPYING
 BUILD_DEPENDS=	${LOCALBASE}/share/pciids/pci.ids:misc/pciids
 RUN_DEPENDS=	${LOCALBASE}/share/pciids/pci.ids:misc/pciids
 
+USE_LDCONFIG= yes
 CONFIGURE_ARGS=	--with-pciids-path=${LOCALBASE}/share/pciids
 
-USES=		xorg-cat:lib
+USES=		lib32 xorg-cat:lib
 INSTALL_TARGET=	install-strip
 
 .include <bsd.port.mk>

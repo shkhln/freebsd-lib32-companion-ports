@@ -95,6 +95,7 @@
     SUBDIR += knot2-lib
     SUBDIR += ldapdns
     SUBDIR += ldns
+    SUBDIR += lib32-libidn2
     SUBDIR += libasr
     SUBDIR += libasr-devel
     SUBDIR += libbind

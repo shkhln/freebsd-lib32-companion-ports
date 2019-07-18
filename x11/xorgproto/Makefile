@@ -7,7 +7,7 @@ CATEGORIES=	x11
 MAINTAINER=	x11@FreeBSD.org
 COMMENT=	xorg protocol headers
 
-USES=		xorg-cat:proto
+USES=		lib32 xorg-cat:proto
 
 CONFIGURE_ARGS= --without-fop \
 		--without-xmlto \

@@ -10,7 +10,7 @@ COMMENT=	Abstract network code for X
 
 LICENSE=	MIT
 
-USES=		xorg-cat:lib
+USES=		lib32 xorg-cat:lib
 
 CONFIGURE_ARGS+=--disable-docs --without-xmlto
 

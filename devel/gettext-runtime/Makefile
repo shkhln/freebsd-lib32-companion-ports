@@ -16,7 +16,7 @@ LICENSE_FILE_GPLv3+ =	${WRKSRC}/../COPYING
 
 .include "${.CURDIR}/../gettext/Makefile.common"
 
-USES=		charsetfix cpe iconv libtool tar:xz
+USES=		charsetfix cpe iconv lib32 libtool tar:xz
 USE_LDCONFIG=	yes
 
 CPE_PRODUCT=	gettext

@@ -1092,6 +1092,16 @@
     SUBDIR += lemon
     SUBDIR += lfcbase
     SUBDIR += lfcxml
+    SUBDIR += lib32-gettext-runtime
+    SUBDIR += lib32-glib20
+    SUBDIR += lib32-libffi
+    SUBDIR += lib32-libpciaccess
+    SUBDIR += lib32-libpthread-stubs
+    SUBDIR += lib32-libunistring
+    SUBDIR += lib32-libunwind
+    SUBDIR += lib32-pcre
+    SUBDIR += lib32-readline
+    SUBDIR += lib32-xorg-macros
     SUBDIR += libCello
     SUBDIR += libIDL
     SUBDIR += libPropList

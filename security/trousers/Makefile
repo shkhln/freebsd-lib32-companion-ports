@@ -16,10 +16,10 @@ LICENSE_FILE=	${WRKSRC}/LICENSE
 BUILD_DEPENDS=	tpm-emulator>=0.7.4_1:emulators/tpm-emulator
 RUN_DEPENDS:=	${BUILD_DEPENDS}
 
-USES=		dos2unix alias autoreconf gmake iconv libtool pkgconfig ssl
+USES=		dos2unix alias autoreconf gmake iconv lib32 libtool pkgconfig ssl
 DOS2UNIX_GLOB=	*.h *.c
 NO_WRKSUBDIR=	yes
-USE_LDCONFIG=	YES
+USE_LDCONFIG=	yes
 USE_RC_SUBR=	tcsd
 INSTALL_TARGET=	install-strip
 GNU_CONFIGURE=	YES
@@ -41,6 +41,13 @@ GROUPS=		_tss
 
 OPTIONS_DEFINE=	DEBUG
 DEBUG_CONFIGURE_ENABLE=	debug
+
+.if defined(USE_LIB32)
+post-patch:
+	${REINPLACE_CMD} -e 's|-L$${ICONV_PREFIX}/lib|-L$${ICONV_PREFIX}/lib32|g'         ${WRKSRC}/src/tspi/Makefile.am
+	${REINPLACE_CMD} -e 's|$${LOCALBASE}/lib/tddl_emu|$${LOCALBASE}/lib32/tddl_emu|g' ${WRKSRC}/src/tcsd/Makefile.am
+	${REINPLACE_CMD} -e 's|OPENSSL_LIB_DIR="$$withval/lib"|OPENSSL_LIB_DIR="$$withval/lib32"|g' ${WRKSRC}/configure.ac
+.endif
 
 post-install:
 	${INSTALL_DATA} \

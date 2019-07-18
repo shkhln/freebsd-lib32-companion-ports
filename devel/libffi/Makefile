@@ -15,7 +15,7 @@ LICENSE_FILE=	${WRKSRC}/LICENSE
 
 TEST_DEPENDS=	runtest:misc/dejagnu
 
-USES=		libtool pathfix
+USES=		lib32 libtool pathfix
 USE_LDCONFIG=	yes
 GNU_CONFIGURE=	yes
 

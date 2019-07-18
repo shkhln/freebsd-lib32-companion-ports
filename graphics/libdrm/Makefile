@@ -15,7 +15,7 @@ LICENSE=	MIT
 BUILD_DEPENDS=	${LOCALBASE}/libdata/pkgconfig/pthread-stubs.pc:devel/libpthread-stubs
 LIB_DEPENDS=	libpciaccess.so:devel/libpciaccess
 
-USES=		gnome meson pkgconfig tar:bzip2
+USES=		gnome lib32 meson pkgconfig tar:bzip2
 USE_LDCONFIG=	yes
 
 OPTIONS_DEFINE=	MANPAGES TESTS

@@ -15,7 +15,7 @@ LICENSE_FILE_GPLv2=	${WRKSRC}/COPYING
 LICENSE_FILE_LGPL3+ =	${WRKSRC}/COPYING.LIB
 LICENSE_FILE_GFDL=	${WRKSRC}/doc/libunistring.texi
 
-USES=		alias charsetfix iconv libtool tar:xz
+USES=		alias charsetfix iconv lib32 libtool tar:xz
 USE_LDCONFIG=	yes
 GNU_CONFIGURE=	yes
 INSTALL_TARGET=	install-strip

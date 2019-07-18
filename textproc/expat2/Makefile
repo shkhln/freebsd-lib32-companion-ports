@@ -13,7 +13,7 @@ LICENSE=	MIT
 LICENSE_FILE=	${WRKSRC}/COPYING
 
 GNU_CONFIGURE=	yes
-USES=		libtool pathfix tar:bz2
+USES=		lib32 libtool pathfix tar:bz2
 USE_LDCONFIG=	yes
 CONFIGURE_ARGS=	--without-docbook
 INSTALL_TARGET=	install-strip

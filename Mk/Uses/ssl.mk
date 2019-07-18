@@ -104,11 +104,20 @@ BUILD_DEPENDS+=		${LOCALBASE}/lib/libcrypto.so.${OPENSSL_SHLIBVER}:${OPENSSL_POR
 .  if defined(_SSL_RUN_DEP)
 RUN_DEPENDS+=		${LOCALBASE}/lib/libcrypto.so.${OPENSSL_SHLIBVER}:${OPENSSL_PORT}
 .  endif
+.  if defined(USE_LIB32)
+OPENSSLRPATH=		${LOCALBASE}/lib32 # ?
+.  else
 OPENSSLRPATH=		${LOCALBASE}/lib
+.  endif
 
 .endif
 
+.if defined(USE_LIB32)
+OPENSSLLIB=		${OPENSSLBASE}/lib32 # ?
+.else
 OPENSSLLIB=		${OPENSSLBASE}/lib
+.endif
+
 OPENSSLINC=		${OPENSSLBASE}/include
 
 MAKE_ENV+=		OPENSSLBASE=${OPENSSLBASE}

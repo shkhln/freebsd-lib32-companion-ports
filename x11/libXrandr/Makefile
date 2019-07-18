@@ -11,8 +11,10 @@ COMMENT=	X Resize and Rotate extension library
 LICENSE=	MIT
 LICENSE_FILE=	${WRKSRC}/COPYING
 
-USES=		cpe xorg xorg-cat:lib
+USES=		cpe lib32 xorg xorg-cat:lib
+USE_LDCONFIG=	yes
 USE_XORG=	x11 xext xrender xorgproto
+
 CPE_VENDOR=	x
 CPE_PRODUCT=	libxrandr
 

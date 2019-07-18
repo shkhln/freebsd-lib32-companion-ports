@@ -10,7 +10,8 @@ COMMENT=	X Display Manager Control Protocol library
 
 LICENSE=	MIT
 
-USES=		xorg xorg-cat:lib
+USES=		lib32 xorg xorg-cat:lib
+USE_LDCONFIG=	yes
 USE_XORG=	xorgproto:both
 
 CONFIGURE_ARGS+=--disable-docs --without-xmlto

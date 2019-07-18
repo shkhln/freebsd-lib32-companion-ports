@@ -413,6 +413,14 @@
     SUBDIR += lepton
     SUBDIR += leptonica
     SUBDIR += lfview
+    SUBDIR += lib32-jbigkit
+    SUBDIR += lib32-jpeg-turbo
+    SUBDIR += lib32-lcms2
+    SUBDIR += lib32-libGLU
+    SUBDIR += lib32-libdrm
+    SUBDIR += lib32-mesa-libs
+    SUBDIR += lib32-png
+    SUBDIR += lib32-tiff
     SUBDIR += lib3ds
     SUBDIR += libGLU
     SUBDIR += libQGLViewer

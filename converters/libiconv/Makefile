@@ -20,7 +20,7 @@ CONFIGURE_ARGS=	--enable-static \
 		am_cv_func_iconv=no
 INSTALL_TARGET=	install-strip
 MAKE_JOBS_UNSAFE=	yes
-USES=		libtool
+USES=		lib32 libtool
 USE_CSTD=	gnu89
 USE_LDCONFIG=	yes
 

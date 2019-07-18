@@ -14,7 +14,7 @@ COMMENT=	Accurate, fast, and small-footprint color management engine
 LICENSE=	MIT
 LICENSE_FILE=	${WRKSRC}/COPYING
 
-USES=		libtool localbase:ldflags pathfix
+USES=		lib32 libtool localbase:ldflags pathfix
 
 GNU_CONFIGURE=	yes
 INSTALL_TARGET=	install-strip

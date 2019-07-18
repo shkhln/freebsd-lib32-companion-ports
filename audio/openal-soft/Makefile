@@ -13,7 +13,7 @@ LICENSE_FILE=	${WRKSRC}/COPYING
 
 LIB_DEPENDS=	libmysofa.so:audio/libmysofa
 
-USES=		cmake compiler:c++11-lang tar:bzip2
+USES=		cmake compiler:c++11-lang lib32 tar:bzip2
 USE_LDCONFIG=	yes
 
 CMAKE_ARGS=	-DCMAKE_INSTALL_DATADIR:STRING="${PREFIX}/etc"

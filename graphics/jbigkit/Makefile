@@ -13,6 +13,7 @@ COMMENT=	Lossless compression for bi-level images such as scanned pages, faxes
 LICENSE=	GPLv2+
 LICENSE_FILE=	${WRKSRC}/COPYING
 
+USES=		lib32
 USE_LDCONFIG=	yes
 MANS=		jbgtopbm.1 pbmtojbg.1
 BINS=		jbgtopbm pbmtojbg jbgtopbm85 pbmtojbg85
@@ -34,12 +35,13 @@ do-install:
 
 	${INSTALL_DATA} ${WRKSRC}/libjbig/*.h ${STAGEDIR}${PREFIX}/include
 
+	@${MKDIR} ${STAGEDIR}${LIBDIR}
 	${INSTALL_DATA}	\
-		${LIBA:S|^|${WRKSRC}/libjbig/|} ${STAGEDIR}${PREFIX}/lib
+		${LIBA:S|^|${WRKSRC}/libjbig/|} ${STAGEDIR}${LIBDIR}
 	${INSTALL_LIB}	\
-		${LIBS:S|^|${WRKSRC}/libjbig/|} ${STAGEDIR}${PREFIX}/lib
-	${LN} -sf libjbig.so.2 ${STAGEDIR}${PREFIX}/lib/libjbig.so
-	${LN} -sf libjbig85.so.1 ${STAGEDIR}${PREFIX}/lib/libjbig85.so
+		${LIBS:S|^|${WRKSRC}/libjbig/|} ${STAGEDIR}${LIBDIR}
+	${LN} -sf libjbig.so.2 ${STAGEDIR}${LIBDIR}/libjbig.so
+	${LN} -sf libjbig85.so.1 ${STAGEDIR}${LIBDIR}/libjbig85.so
 
 	@${MKDIR} ${STAGEDIR}${DOCSDIR}
 	${INSTALL_DATA} ${WRKSRC}/libjbig/jbig.txt ${STAGEDIR}${DOCSDIR}

@@ -11,9 +11,11 @@ COMMENT=	X11 library
 
 LICENSE=	MIT
 
-USES=		cpe perl5 xorg xorg-cat:lib
+USES=		cpe lib32 perl5 xorg xorg-cat:lib
+USE_LDCONFIG=	yes
 USE_XORG=	xau xcb xdmcp xtrans xorgproto
 USE_PERL5=	build
+
 CPE_VENDOR=	x
 
 CONFIGURE_ARGS+=	--datadir=${PREFIX}/lib \

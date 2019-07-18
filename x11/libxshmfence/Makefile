@@ -9,7 +9,8 @@ COMMENT=	Shared memory 'SyncFence' synchronization primitive
 
 LICENSE=	MIT
 
-USES=		xorg xorg-cat:lib
+USES=		lib32 xorg xorg-cat:lib
+USE_LDCONFIG=	yes
 USE_XORG=	xorgproto
 
 CONFIGURE_ARGS=	--with-shared-memory-dir=/tmp
