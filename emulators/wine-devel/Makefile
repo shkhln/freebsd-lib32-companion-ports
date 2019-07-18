@@ -39,6 +39,7 @@ CONFIGURE_ARGS+=--verbose \
 		--without-gettext --without-gettextpo \
 		--without-gphoto --without-gsm --without-gstreamer \
 		--without-krb5 \
+		--without-mingw \
 		--without-opencl \
 		--without-osmesa \
 		--with-oss \
@@ -65,7 +66,14 @@ OPTIONS_DEFAULT=GCC GNUTLS X11
 .else
 OPTIONS_DEFAULT=GNUTLS X11
 EXTRA_PATCHES= 	${PATCHDIR}/extra-patch-tools_winegcc_winegcc.c
-LLD_UNSAFE=	yes
+#~ LLD_UNSAFE=	yes
+
+LDFLAGS+=	-fuse-ld=/usr/local/bin/ld
+BINARY_ALIAS+=	ld=/usr/local/bin/ld
+LD=		/usr/local/bin/ld
+CONFIGURE_ENV+=	LD=/usr/local/bin/ld
+MAKE_ENV+=	LD=/usr/local/bin/ld
+
 .endif
 OPTIONS_SUB=	yes
 
