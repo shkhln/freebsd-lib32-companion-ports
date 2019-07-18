@@ -91,10 +91,12 @@ RUN_DEPENDS:=	${_LIB32_MDEP_TUPLE} ${RUN_DEPENDS}
 ${flags}:=	${${flags}:S|${LOCALBASE}/lib|${LOCALBASE}/lib32|g} -m32
 .  endfor
 
-.  if !defined(USE_LDCONFIG) || ${USE_LDCONFIG} == yes
-USE_LDCONFIG32=	${LIBDIR}
-.  else
-USE_LDCONFIG32=	${USE_LDCONFIG:S|${PREFIX}/lib|${LIBDIR}|g}
+.  if !defined(USE_LDCONFIG32)
+.   if !defined(USE_LDCONFIG) || ${USE_LDCONFIG} == yes
+USE_LDCONFIG32:=${LIBDIR}
+.   else
+USE_LDCONFIG32:=${USE_LDCONFIG:S|${PREFIX}/lib$$|${LIBDIR}|g}
+.   endif
 .  endif
 .  undef USE_LDCONFIG
 
