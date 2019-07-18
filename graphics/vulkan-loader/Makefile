@@ -13,7 +13,7 @@ LICENSE=	APACHE20
 
 BUILD_DEPENDS=	${LOCALBASE}/include/vulkan/vulkan.h:devel/vulkan-headers
 
-USES=		cmake compiler:c++11-lib pkgconfig python:3.4+,build
+USES=		cmake compiler:c++11-lib lib32 pkgconfig python:3.4+,build
 USE_LDCONFIG=	yes
 
 USE_GITHUB=	yes
@@ -38,6 +38,11 @@ XCB_LIB_DEPENDS=	libX11-xcb.so:x11/libX11 \
 			libxcb.so:x11/libxcb
 WAYLAND_CMAKE_BOOL=	BUILD_WSI_WAYLAND_SUPPORT
 WAYLAND_LIB_DEPENDS=	libwayland-egl.so:graphics/wayland
+
+.if defined(USE_LIB32)
+ASFLAGS=	--32
+. export-env ASFLAGS
+.endif
 
 post-patch:
 # Non-x86 targets use C code, so don't abort without GNU as (e.g., on aarch64)

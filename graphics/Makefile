@@ -421,6 +421,8 @@
     SUBDIR += lib32-mesa-libs
     SUBDIR += lib32-png
     SUBDIR += lib32-tiff
+    SUBDIR += lib32-vulkan-loader
+    SUBDIR += lib32-wayland
     SUBDIR += lib3ds
     SUBDIR += libGLU
     SUBDIR += libQGLViewer
