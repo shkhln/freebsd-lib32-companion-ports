@@ -43,6 +43,11 @@ WAYLAND_LIB_DEPENDS=	libwayland-egl.so:graphics/wayland
 
 .include <bsd.port.pre.mk>
 
+.if defined(USE_LIB32)
+ASFLAGS=	--32
+. export-env ASFLAGS
+.endif
+
 # XXX Drop after FreeBSD 11.3/12.1 EOL
 .if ${ARCH} == i386 && ${COMPILER_TYPE} == clang && ${COMPILER_VERSION} < 100
 . if ${LLVM_DEFAULT:C/[1-5]./&0/:S,-devel,990,} < 100
