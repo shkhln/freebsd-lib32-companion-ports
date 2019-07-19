@@ -5,5 +5,5 @@ MASTERDIR=	${.CURDIR}/../wine-devel
 
 .include "${MASTERDIR}/Makefile"
 
-LDFLAGS+=	-Wl,-rpath,/usr/local/lib32
+LDFLAGS+=	-Wl,-rpath,${PREFIX}/lib32 # ?
 LIB32_PATTERN:=	(^bin\/wine$$$|${LIB32_PATTERN})
