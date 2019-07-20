@@ -88,8 +88,13 @@ BUILD_DEPENDS+=	llvm${LLVM_DEFAULT}>=3.9.0_4:devel/llvm${LLVM_DEFAULT}
 .if ${COMPONENT} != libs
 RUN_DEPENDS+=	llvm${LLVM_DEFAULT}>=3.9.0_4:devel/llvm${LLVM_DEFAULT}
 .endif
+.if defined(USE_LIB32)
+CONFIGURE_ENV+=	LLVM_CONFIG=${LOCALBASE}/bin/lib32-llvm-config${LLVM_DEFAULT}
+LDFLAGS+=	-Wl,-rpath=${LOCALBASE}/llvm${LLVM_DEFAULT}/lib32
+.else
 CONFIGURE_ENV+=	LLVM_CONFIG=${LOCALBASE}/bin/llvm-config${LLVM_DEFAULT}
 LDFLAGS+=	-Wl,-rpath=${LOCALBASE}/llvm${LLVM_DEFAULT}/lib
+.endif
 CONFIGURE_ARGS+=	--enable-llvm
 .else
 CONFIGURE_ARGS+=	--disable-llvm

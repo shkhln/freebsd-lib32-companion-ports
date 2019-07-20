@@ -418,6 +418,7 @@
     SUBDIR += lib32-lcms2
     SUBDIR += lib32-libGLU
     SUBDIR += lib32-libdrm
+    SUBDIR += lib32-mesa-dri
     SUBDIR += lib32-mesa-libs
     SUBDIR += lib32-png
     SUBDIR += lib32-tiff

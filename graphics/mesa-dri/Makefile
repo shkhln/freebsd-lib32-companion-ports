@@ -8,6 +8,7 @@ CATEGORIES=	graphics
 
 COMMENT=	OpenGL hardware acceleration drivers for DRI2+
 
+USES=		lib32
 USE_XORG=	xorgproto x11 xdamage xext xfixes xshmfence xv xvmc
 
 OPTIONS_DEFINE=	VAAPI VDPAU WAYLAND
