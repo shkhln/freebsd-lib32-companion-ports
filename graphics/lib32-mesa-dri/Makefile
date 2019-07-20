@@ -5,7 +5,10 @@ MASTERDIR=	${.CURDIR}/../mesa-dri
 
 .include "${MASTERDIR}/Makefile"
 
-CONFIGURE_ARGS+=--disable-asm # ?
+CONFIGURE_ARGS+=--build=i386-portbld-freebsd --host=i386-portbld-freebsd
+
+# /usr/bin/ld: error: can't create dynamic relocation R_386_PC32 against symbol
+LDFLAGS+=	-Wl,-znotext
 
 DESCR=		${MASTERDIR}/pkg-descr
 PLIST=		${MASTERDIR}/pkg-plist
