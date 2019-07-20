@@ -146,6 +146,8 @@
     SUBDIR += lib32-libXinerama
     SUBDIR += lib32-libXrandr
     SUBDIR += lib32-libXrender
+    SUBDIR += lib32-libXv
+    SUBDIR += lib32-libXvMC
     SUBDIR += lib32-libXxf86vm
     SUBDIR += lib32-libxcb
     SUBDIR += lib32-libxshmfence
