@@ -1,0 +1,9 @@
+# $FreeBSD$
+
+USE_LIB32=	yes
+MASTERDIR=	${.CURDIR}/../glew
+
+.include "${MASTERDIR}/Makefile"
+
+MAKE_ENV+= GLEW_LIBDIR=${LOCALBASE}/lib32
+MAKE_ENV+= LDFLAGS.EXTRA=-L${LOCALBASE}/lib32

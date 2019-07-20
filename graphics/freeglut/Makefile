@@ -17,8 +17,13 @@ USES=		cmake:insource gl pathfix xorg
 USE_LDCONFIG=	yes
 USE_XORG=	ice x11 xi xrandr
 USE_GL=		gl glu
+
 CPPFLAGS+=	-I${LOCALBASE}/include
+.if defined(USE_LIB32)
+LDFLAGS+=	-L${LOCALBASE}/lib32 -lusbhid -lm
+.else
 LDFLAGS+=	-L${LOCALBASE}/lib -lusbhid -lm
+.endif
 INSTALL_TARGET=	install/strip
 
 DOCS=	download.html freeglut.html freeglut_logo.png		\

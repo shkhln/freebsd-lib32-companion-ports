@@ -74,6 +74,8 @@
     SUBDIR += kf5-kxmlgui
     SUBDIR += kproperty
     SUBDIR += lesstif
+    SUBDIR += lib32-libXmu
+    SUBDIR += lib32-libXt
     SUBDIR += libXaw
     SUBDIR += libXmu
     SUBDIR += libXt
