@@ -11,7 +11,8 @@ COMMENT=	Session Management library for X11
 
 LICENSE=	MIT
 
-USES=		pathfix xorg xorg-cat:lib
+USES=		lib32 pathfix xorg xorg-cat:lib
+USE_LDCONFIG=	yes
 USE_XORG=	ice xorgproto xtrans
 
 CONFIGURE_ARGS+=--disable-docs --without-xmlto

@@ -13,7 +13,7 @@ COMMENT=	OpenGL Extension Wrangler Library
 LICENSE=	MIT BSD3CLAUSE
 LICENSE_COMB=	dual
 
-USES=		gmake gl tar:tgz xorg
+USES=		gmake gl lib32 tar:tgz xorg
 USE_XORG?=	x11 xext xi xmu
 USE_GL?=	gl glu
 USE_LDCONFIG=	yes

@@ -134,6 +134,8 @@
     SUBDIR += kf5-plasma-framework
     SUBDIR += konsole
     SUBDIR += lemonbar
+    SUBDIR += lib32-libICE
+    SUBDIR += lib32-libSM
     SUBDIR += lib32-libX11
     SUBDIR += lib32-libXau
     SUBDIR += lib32-libXcomposite

@@ -413,11 +413,14 @@
     SUBDIR += lepton
     SUBDIR += leptonica
     SUBDIR += lfview
+    SUBDIR += lib32-freeglut
+    SUBDIR += lib32-glew
     SUBDIR += lib32-jbigkit
     SUBDIR += lib32-jpeg-turbo
     SUBDIR += lib32-lcms2
     SUBDIR += lib32-libGLU
     SUBDIR += lib32-libdrm
+    SUBDIR += lib32-mesa-demos
     SUBDIR += lib32-mesa-dri
     SUBDIR += lib32-mesa-libs
     SUBDIR += lib32-png

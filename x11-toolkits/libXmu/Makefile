@@ -12,7 +12,8 @@ COMMENT=	X Miscellaneous Utilities libraries
 LICENSE=	MIT
 LICENSE_FILE=	${WRKSRC}/COPYING
 
-USES=		xorg xorg-cat:lib
+USES=		lib32 xorg xorg-cat:lib
+USE_LDCONFIG=	yes
 USE_XORG=	xorgproto x11 xt xext
 
 INSTALL_TARGET=	install-strip
