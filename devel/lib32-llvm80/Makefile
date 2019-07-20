@@ -1,0 +1,11 @@
+# $FreeBSD$
+
+USE_LIB32=	yes
+MASTERDIR=	${.CURDIR}/../llvm80
+
+OPTIONS_EXCLUDE+= DOCS EXTRAS LIT LLD LLDB
+
+.include "${MASTERDIR}/Makefile"
+
+LIB32_PATTERN:= (lib32-llvm-config|llvm${LLVM_SUFFIX}\/lib32|${LIB32_PATTERN})
+USE_LDCONFIG32=	${LLVM_PREFIX}/lib32 # ?

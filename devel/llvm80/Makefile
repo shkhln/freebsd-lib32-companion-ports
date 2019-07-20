@@ -22,7 +22,7 @@ LLVM_PREFIX=	${PREFIX}/llvm${LLVM_SUFFIX}
 DOCSDIR=	${PREFIX}/share/doc/${PORTNAME}${LLVM_SUFFIX}
 DATADIR=	${PREFIX}/share/${PORTNAME}${LLVM_SUFFIX}
 
-USES=		cmake compiler:c++11-lib libedit perl5 tar:xz \
+USES=		cmake compiler:c++11-lib lib32 libedit perl5 tar:xz \
 		shebangfix
 _USES_PYTHON?=	python:3.6+,build
 USES+=		${_USES_PYTHON}
@@ -39,7 +39,11 @@ SUB_LIST=	LLVM_PREFIX="${LLVM_PREFIX}" LLVM_SUFFIX="${LLVM_SUFFIX}"
 CMAKE_INSTALL_PREFIX=	${LLVM_PREFIX}
 CMAKE_ARGS=	-DLLVM_BUILD_LLVM_DYLIB=ON -DLLVM_LINK_LLVM_DYLIB=ON
 CMAKE_ARGS+=	-DLLVM_ENABLE_RTTI=ON
+.if defined(USE_LIB32)
+CMAKE_ARGS+=	-DLLVM_DEFAULT_TARGET_TRIPLE=i386-portbld-freebsd
+.else
 CMAKE_ARGS+=	-DLLVM_DEFAULT_TARGET_TRIPLE=${CONFIGURE_TARGET}
+.endif
 CMAKE_ARGS+=	-DLLVM_HOST_TRIPLE=${CONFIGURE_TARGET}
 # Following commit https://github.com/kitware/cmake/commit/956054
 # we need to either change the whole man-shuffle below, or simply
@@ -49,6 +53,11 @@ CMAKE_ARGS+=	-DLLVM_PARALLEL_LINK_JOBS=1
 CMAKE_ARGS+=	-DPYTHON_EXECUTABLE=${PYTHON_CMD} \
 		-DPYTHON_INCLUDE_DIR=${PYTHON_INCLUDEDIR} \
 		-DPYTHON_LIBRARY=${LOCALBASE}/lib/lib${PYTHON_VERSION}${PYTHON_ABIVER}.so
+
+.if defined(USE_LIB32)
+CMAKE_ARGS+=	-DLLVM_LIBDIR_SUFFIX:STRING=32
+CMAKE_ARGS+=	-DLLVM_TARGET_ARCH:STRING=i386
+.endif
 
 # Disable assertions.  They should be disabled by cmake, but USES=cmake
 # overrides -DCMAKE_*_FLAGS_RELEASE.
@@ -287,10 +296,14 @@ _BE_LIBS_${BE}+=	${_BE_LIBS_COMMON:S/^/${BE_ARCH}/} \
 .endfor
 BE_PATTERN=${_BE_LIBS_STANDARD:O:S/$/.a/:ts|}
 
+.if defined(USE_LIB32)
+_CRTLIBDIR=	${LLVM_PREFIX:S|${PREFIX}/||}/lib32/clang/${LLVM_RELEASE}/lib/freebsd
+.else
 _CRTLIBDIR=	${LLVM_PREFIX:S|${PREFIX}/||}/lib/clang/${LLVM_RELEASE}/lib/freebsd
+.endif
 _CRTBLDIR=	${LLVM_PREFIX:S|${PREFIX}/||}/share
 _COMPILER_RT_BLACKLISTS=	cfi_blacklist.txt
-.if ${ARCH} == "amd64"
+.if ${ARCH} == "amd64" && !defined(USE_LIB32)
 _COMPILER_RT_BLACKLISTS+=	asan_blacklist.txt
 _COMPILER_RT_BLACKLISTS+=	msan_blacklist.txt
 _COMPILER_RT_LIBS= \
@@ -335,7 +348,7 @@ _COMPILER_RT_LIBS= \
 	libclang_rt.xray-profiling-x86_64.a \
 	libclang_rt.xray-x86_64.a
 .endif
-.if ${ARCH} == "i386"
+.if ${ARCH} == "i386" || (${ARCH} == "amd64" && defined(USE_LIB32))
 _COMPILER_RT_BLACKLISTS+=	asan_blacklist.txt
 _COMPILER_RT_LIBS+= \
 	libclang_rt.asan-i386.a \
@@ -436,6 +449,14 @@ post-install:
 	${LN} -f ${STAGEDIR}${PREFIX}/bin/${FIRST_COMMAND}${LLVM_SUFFIX} \
 	    ${STAGEDIR}${PREFIX}/bin/${command}${LLVM_SUFFIX}
 .endfor
+.if defined(USE_LIB32)
+	${REINPLACE_CMD} -e 's|llvm${LLVM_SUFFIX}/lib/|llvm${LLVM_SUFFIX}/lib32/|g' \
+	    -e 's|bin/llvm-config|bin/lib32-llvm-config|g' ${TMPPLIST}
+	${MV} ${STAGEDIR}${LLVM_PREFIX}/bin/llvm-config \
+	    ${STAGEDIR}${LLVM_PREFIX}/bin/lib32-llvm-config
+	${MV} ${STAGEDIR}${PREFIX}/bin/llvm-config${LLVM_SUFFIX} \
+	    ${STAGEDIR}${PREFIX}/bin/lib32-llvm-config${LLVM_SUFFIX}
+.endif
 
 post-install-DOCS-on:
 	${MV} ${STAGEDIR}${LLVM_PREFIX}/share/doc ${STAGEDIR}${DOCSDIR}
@@ -469,7 +490,7 @@ post-install-CLANG-on:
 post-install-COMPILER_RT-on:
 	cd ${WRKDIR}/compiler-rt-build && \
 	    ${MAKE_ENV} ${MAKE_CMD} ${INSTALL_TARGET}
-.if ${ARCH} == "amd64"
+.if ${ARCH} == "amd64" && !defined(USE_LIB32)
 	${RM} ${STAGEDIR}${LLVM_PREFIX}/lib/freebsd/libclang_rt*i386*
 .endif
 	${MKDIR} ${STAGEDIR}${PREFIX}/${_CRTLIBDIR}
