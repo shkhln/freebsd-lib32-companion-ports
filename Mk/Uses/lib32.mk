@@ -105,7 +105,7 @@ post-stage-lib32:
 	${MKDIR} ${STAGEDIR}${PREFIX}/libdata/pkgconfig32
 	for p in libdata/pkgconfig lib32/pkgconfig; do \
 		if test -d ${STAGEDIR}${PREFIX}/$$p; then \
-			${FIND} ${STAGEDIR}${PREFIX}/$$p -name "*.pc" -exec mv {} ${STAGEDIR}${PREFIX}/libdata/pkgconfig32 \;; \
+			${FIND} ${STAGEDIR}${PREFIX}/$$p -name "*.pc" -exec ${MV} {} ${STAGEDIR}${PREFIX}/libdata/pkgconfig32 \;; \
 		fi \
 	done
 
