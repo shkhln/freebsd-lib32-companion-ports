@@ -96,13 +96,21 @@ BINARY_ALIAS+=	python3=${PYTHON_VERSION}
 .if ${ARCH} == sparc64
 MESON_ARGS+=	-Dllvm=false
 .else
+.if defined(USE_LIB32)
+BUILD_DEPENDS+=	lib32-llvm${LLVM_DEFAULT}>=3.9.0_4:devel/lib32-llvm${LLVM_DEFAULT}
+.else
 BUILD_DEPENDS+=	llvm${LLVM_DEFAULT}>=3.9.0_4:devel/llvm${LLVM_DEFAULT}
+.endif
 .if ${COMPONENT} != libs
+.if defined(USE_LIB32)
+RUN_DEPENDS+=	lib32-llvm${LLVM_DEFAULT}>=3.9.0_4:devel/lib32-llvm${LLVM_DEFAULT}
+.else
 RUN_DEPENDS+=	llvm${LLVM_DEFAULT}>=3.9.0_4:devel/llvm${LLVM_DEFAULT}
 .endif
 #TODO: CONFIGURE_ENV+=	LLVM_CONFIG=${LOCALBASE}/bin/lib32-llvm-config${LLVM_DEFAULT}
 #TODO: cross file?
 MESON_ARGS+=	--native-file="${WRKSRC}/llvm.ini"
+.endif
 .if defined(USE_LIB32)
 LDFLAGS+=	-Wl,-rpath=${LOCALBASE}/llvm${LLVM_DEFAULT}/lib32
 .else
