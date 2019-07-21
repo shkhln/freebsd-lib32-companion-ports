@@ -79,6 +79,14 @@ BUILD_DEPENDS:=	${BUILD_DEPENDS:C!${LOCALBASE}/lib/lib(GL|EGL|GLESv2).so:graphic
 RUN_DEPENDS:=	${RUN_DEPENDS:C!${LOCALBASE}/lib/lib(GL|EGL|GLESv2).so:graphics/mesa-libs!${LOCALBASE}/lib32/lib\1.so:graphics/lib32-mesa-libs!g}
 .  endif
 
+# We need to make sure that companion ports depend on exactly the same versions of master ports,
+# since master ports provide headers, config files, documentation and so on.
+.  if !defined(ALLOW_LIB32_DESYNC)
+_LIB32_MDEP_TUPLE=${PKGNAMEPREFIX:C/^lib32-//}${PORTNAME}${PKGNAMESUFFIX}=${PKGVERSION}:${PKGCATEGORY}/${PKGNAMEPREFIX:C/^lib32-//}${PORTNAME}${PKGNAMESUFFIX}
+BUILD_DEPENDS:=	${_LIB32_MDEP_TUPLE} ${BUILD_DEPENDS}
+RUN_DEPENDS:=	${_LIB32_MDEP_TUPLE} ${RUN_DEPENDS}
+.  endif
+
 .  for flags in CFLAGS CPPFLAGS
 ${flags}:=	${${flags}:S|${LOCALBASE}/lib|${LOCALBASE}/lib32|g} -m32
 .  endfor
