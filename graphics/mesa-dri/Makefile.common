@@ -84,9 +84,17 @@ LLVM_DEFAULT=	80
 .endif
 
 .if ${ARCH} == aarch64 || ${ARCH} == amd64 || ${ARCH:Marm*} || ${ARCH} == i386 || ${ARCH:Mmips*} || ${ARCH:Mpowerpc*}
+.if defined(USE_LIB32)
+BUILD_DEPENDS+=	lib32-llvm${LLVM_DEFAULT}>=3.9.0_4:devel/lib32-llvm${LLVM_DEFAULT}
+.else
 BUILD_DEPENDS+=	llvm${LLVM_DEFAULT}>=3.9.0_4:devel/llvm${LLVM_DEFAULT}
+.endif
 .if ${COMPONENT} != libs
+.if defined(USE_LIB32)
+RUN_DEPENDS+=	lib32-llvm${LLVM_DEFAULT}>=3.9.0_4:devel/lib32-llvm${LLVM_DEFAULT}
+.else
 RUN_DEPENDS+=	llvm${LLVM_DEFAULT}>=3.9.0_4:devel/llvm${LLVM_DEFAULT}
+.endif
 .endif
 .if defined(USE_LIB32)
 CONFIGURE_ENV+=	LLVM_CONFIG=${LOCALBASE}/bin/lib32-llvm-config${LLVM_DEFAULT}
