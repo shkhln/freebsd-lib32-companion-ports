@@ -11,7 +11,7 @@ COMMENT=	Small epoll implementation using kqueue
 LICENSE=	MIT
 LICENSE_FILE=	${WRKSRC}/LICENSE
 
-USES=		cmake compiler:c11
+USES=		cmake compiler:c11 lib32
 USE_LDCONFIG=	yes
 USE_GITHUB=	yes
 GH_ACCOUNT=	FreeBSDDesktop
