@@ -82,7 +82,7 @@ RUN_DEPENDS:=	${RUN_DEPENDS:C!${LOCALBASE}/lib/lib(GL|EGL|GLESv2).so:graphics/me
 # We need to make sure that companion ports depend on exactly the same versions of master ports,
 # since master ports provide headers, config files, documentation and so on.
 .  if !defined(ALLOW_LIB32_DESYNC)
-_LIB32_MDEP_TUPLE=${PKGNAMEPREFIX:C/^lib32-//}${PORTNAME}${PKGNAMESUFFIX}=${PKGVERSION}:${PKGCATEGORY}/${PKGNAMEPREFIX:C/^lib32-//}${PORTNAME}${PKGNAMESUFFIX}
+_LIB32_MDEP_TUPLE=${PKGNAMEPREFIX:C/^lib32-//}${PORTNAME}${PKGNAMESUFFIX}=${PKGVERSION}:${PKGCATEGORY}/${MASTERDIR:C|/([^/]+)$$$|:\1|:C|([^:]+:)||}
 BUILD_DEPENDS:=	${_LIB32_MDEP_TUPLE} ${BUILD_DEPENDS}
 RUN_DEPENDS:=	${_LIB32_MDEP_TUPLE} ${RUN_DEPENDS}
 .  endif
