@@ -7,4 +7,6 @@ MASTERDIR=	${.CURDIR}/../libunwind
 
 CONFIGURE_ARGS+=--host=i386-portbld-freebsd
 
+LIB32_PATTERN:=	(^include\/libunwind-x86.h$$$|${LIB32_PATTERN})
+
 PLIST_SUB=	ARCH=x86
