@@ -27,7 +27,7 @@ LIB_DEPENDS=	libxml2.so:textproc/libxml2
 LIB_DEPENDS+=	libFAudio.so:audio/faudio
 .endif
 
-USES=		bison desktop-file-utils gmake lib32 localbase shebangfix tar:xz
+USES=		bison desktop-file-utils gmake lib32 localbase pkgconfig shebangfix tar:xz
 
 CONFLICTS_INSTALL=	wine-[0-9]* i386-wine-[0-9]* i386-wine-devel-[0-9]*
 
