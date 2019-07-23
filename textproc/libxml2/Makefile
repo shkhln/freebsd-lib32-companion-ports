@@ -75,6 +75,10 @@ post-patch:
 .if ${CHOSEN_COMPILER_TYPE} == gcc
 	@${REINPLACE_CMD} -e 's/ -Wno-array-bounds//' ${WRKSRC}/configure
 .endif
+.if defined(USE_LIB32)
+	@${REINPLACE_CMD} -e 's|-L$$with_iconv/lib|-L$$with_iconv/lib32|' ${WRKSRC}/configure
+	@${REINPLACE_CMD} -e 's|-L$${LZMA_DIR}/lib|-L$${LZMA_DIR}/lib32|' ${WRKSRC}/configure
+.endif
 
 .include <bsd.port.post.mk>
 
