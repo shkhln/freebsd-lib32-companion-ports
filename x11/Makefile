@@ -153,6 +153,8 @@
     SUBDIR += lib32-libXxf86vm
     SUBDIR += lib32-libxcb
     SUBDIR += lib32-libxshmfence
+    SUBDIR += lib32-xcb-util
+    SUBDIR += lib32-xcb-util-keysyms
     SUBDIR += lib32-xorgproto
     SUBDIR += lib32-xtrans
     SUBDIR += libICE

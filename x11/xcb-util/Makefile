@@ -14,8 +14,10 @@ COMMENT=	Module with libxcb/libX11 extension/replacement libraries
 LICENSE=	MIT
 LICENSE_FILE=	${WRKSRC}/COPYING
 
-USES=		gmake tar:bzip2 xorg xorg-cat:lib
+USES=		gmake lib32 tar:bzip2 xorg xorg-cat:lib
+USE_LDCONFIG=	yes
 USE_XORG=	xau xcb xdmcp
+
 INSTALL_TARGET=	install-strip
 
 post-patch:

@@ -13,7 +13,8 @@ LICENSE=	MIT
 
 LIB_DEPENDS=	libxcb-util.so:x11/xcb-util
 
-USES=		gmake xorg xorg-cat:lib
+USES=		gmake lib32 xorg xorg-cat:lib
+USE_LDCONFIG=	yes
 USE_XORG=	xcb
 
 post-patch:
