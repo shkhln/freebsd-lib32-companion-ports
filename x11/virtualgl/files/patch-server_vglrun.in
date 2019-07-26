@@ -1,0 +1,36 @@
+--- server/vglrun.in.orig	2015-03-18 11:33:14.000000000 +0300
++++ server/vglrun.in	2019-07-25 15:00:06.402440000 +0300
+@@ -220,10 +220,13 @@
+ fi
+ if [ ! -z "$VGL_LIBRARY_PATH" ]; then
+ 	LD_LIBRARY_PATH=$VGL_LIBRARY_PATH:$LD_LIBRARY_PATH
++	LD_32_LIBRARY_PATH=$VGL_32_LIBRARY_PATH:$LD_32_LIBRARY_PATH
+ 	export LD_LIBRARY_PATH
++	export LD_32_LIBRARY_PATH
+ 	if [ ! -z "$VGL_VERBOSE" ]; then
+ 		if [ $VGL_VERBOSE -eq 1 ]; then
+ 			echo [VGL] NOTICE: Added $VGL_LIBRARY_PATH to LD_LIBRARY_PATH
++			echo [VGL] NOTICE: Added $VGL_32_LIBRARY_PATH to LD_32_LIBRARY_PATH
+ 		fi
+ 	fi
+ fi
+@@ -233,14 +235,19 @@
+ 
+ if [ -z "$LD_PRELOAD" ]; then
+ 	LD_PRELOAD=lib@VGL_RRFAKER_NAME@.so
++	LD_32_PRELOAD=lib@VGL_RRFAKER_NAME@.so
+ else
+ 	LD_PRELOAD=lib@VGL_RRFAKER_NAME@.so:$LD_PRELOAD
++	LD_32_PRELOAD=lib@VGL_RRFAKER_NAME@.so:$LD_32_PRELOAD
+ fi
+ if [ $__VGL_DL -eq 1 ]; then
+ 	LD_PRELOAD=lib@VGL_DLFAKER_NAME@.so:$LD_PRELOAD
++	LD_32_PRELOAD=lib@VGL_DLFAKER_NAME@.so:$LD_32_PRELOAD
+ fi
+ if [ $__VGL_GE -eq 1 ]; then
+ 	LD_PRELOAD=lib@VGL_GEFAKER_NAME@.so:$LD_PRELOAD
++	LD_32_PRELOAD=lib@VGL_GEFAKER_NAME@.so:$LD_32_PRELOAD
+ fi
+ export LD_PRELOAD
++export LD_32_PRELOAD
+ exec ${1+"$@"}
