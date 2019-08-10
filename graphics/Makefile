@@ -425,6 +425,7 @@
     SUBDIR += lib32-mesa-dri
     SUBDIR += lib32-mesa-libs
     SUBDIR += lib32-png
+    SUBDIR += lib32-s2tc
     SUBDIR += lib32-tiff
     SUBDIR += lib32-vulkan-loader
     SUBDIR += lib32-wayland

@@ -17,7 +17,7 @@ TEST_DEPENDS=	convert:graphics/ImageMagick6 \
 		nvcompress:graphics/nvidia-texture-tools \
 		wget:ftp/wget
 
-USES=		autoreconf libtool pathfix
+USES=		autoreconf lib32 libtool pathfix
 USE_GITHUB=	yes
 USE_LDCONFIG=	yes
 
