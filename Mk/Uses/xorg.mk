@@ -134,9 +134,21 @@ xxf86dga_LIB_PC_DEPENDS=	${LOCALBASE}/libdata/pkgconfig/xxf86dga.pc:x11/libXxf86
 xxf86misc_LIB_PC_DEPENDS=	${LOCALBASE}/libdata/pkgconfig/xxf86misc.pc:x11/libXxf86misc
 xxf86vm_LIB_PC_DEPENDS=		${LOCALBASE}/libdata/pkgconfig/xxf86vm.pc:x11/libXxf86vm
 
+.  if defined(USE_LIB32)
+.    for m in ${XORG_MODULES}
+.      if defined(${m}_LIB_PC_DEPENDS)
+${m}_LIB_PC_DEPENDS:=${${m}_LIB_PC_DEPENDS:C|pkgconfig/([^:]+):([^/]*)/(.*)|pkgconfig32/\1:\2/lib32-\3|}
+.      endif
+.    endfor
+.  endif
+
 # Add explicit X options to avoid problems with false positives in configure
 .  if defined(GNU_CONFIGURE)
+.    if defined(USE_LIB32)
+CONFIGURE_ARGS+=--x-libraries=${LOCALBASE}/lib32 --x-includes=${LOCALBASE}/include
+.    else
 CONFIGURE_ARGS+=--x-libraries=${LOCALBASE}/lib --x-includes=${LOCALBASE}/include
+.    endif
 .  endif
 
 .  for _module in ${USE_XORG:M*\:both:C/\:.*//g}
