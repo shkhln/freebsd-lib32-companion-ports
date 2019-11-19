@@ -135,9 +135,13 @@ xxf86misc_LIB_PC_DEPENDS=	${LOCALBASE}/libdata/pkgconfig/xxf86misc.pc:x11/libXxf
 xxf86vm_LIB_PC_DEPENDS=		${LOCALBASE}/libdata/pkgconfig/xxf86vm.pc:x11/libXxf86vm
 
 .  if defined(USE_LIB32)
+xorgproto_BUILD_DEPENDS:=	lib32-xorgproto>=0:x11/lib32-xorgproto
 .    for m in ${XORG_MODULES}
 .      if defined(${m}_LIB_PC_DEPENDS)
 ${m}_LIB_PC_DEPENDS:=${${m}_LIB_PC_DEPENDS:C|pkgconfig/([^:]+):([^/]*)/(.*)|pkgconfig32/\1:\2/lib32-\3|}
+.      endif
+.      if defined(${m}_BUILD_DEPENDS)
+${m}_BUILD_DEPENDS:=${${m}_BUILD_DEPENDS:C|pkgconfig/([^:]+):([^/]*)/(.*)|pkgconfig32/\1:\2/lib32-\3|}
 .      endif
 .    endfor
 .  endif
@@ -145,7 +149,7 @@ ${m}_LIB_PC_DEPENDS:=${${m}_LIB_PC_DEPENDS:C|pkgconfig/([^:]+):([^/]*)/(.*)|pkgc
 # Add explicit X options to avoid problems with false positives in configure
 .  if defined(GNU_CONFIGURE)
 .    if defined(USE_LIB32)
-CONFIGURE_ARGS+=--x-libraries=${LOCALBASE}/lib32 --x-includes=${LOCALBASE}/include
+CONFIGURE_ARGS+=--x-libraries=${LOCALBASE}/lib32 --x-includes=${LOCALBASE}/include # ?
 .    else
 CONFIGURE_ARGS+=--x-libraries=${LOCALBASE}/lib --x-includes=${LOCALBASE}/include
 .    endif

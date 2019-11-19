@@ -31,7 +31,8 @@ VDPAU_MESON_ON=		-Dgallium-vdpau=true
 VDPAU_LIB_DEPENDS=	libvdpau.so:multimedia/libvdpau
 
 WAYLAND_DESC=		Enable support for the Wayland platform in Vulkan drivers
-WAYLAND_BUILD_DEPENDS=	wayland-protocols>=1.8:graphics/wayland-protocols
+WAYLAND_BUILD_DEPENDS=	wayland-protocols>=1.8:graphics/wayland-protocols \
+			${LOCALBASE}/libdata/pkgconfig/wayland-protocols.pc:graphics/wayland-protocols
 WAYLAND_LIB_DEPENDS=	libwayland-client.so:graphics/wayland
 WAYLAND_IMPLIES=	PLATFORM_WAYLAND
 
