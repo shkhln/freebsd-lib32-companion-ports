@@ -13,7 +13,7 @@ COMMENT=	The X protocol C-language Binding (XCB) protocol
 LICENSE=	MIT
 LICENSE_FILE=	${WRKSRC}/COPYING
 
-USES=		gnome python xorg-cat:proto
+USES=		gnome lib32 python xorg-cat:proto
 USE_GNOME=	libxml2:build
 USE_PYTHON=	py3kplist
 NO_ARCH=	yes

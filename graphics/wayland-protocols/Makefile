@@ -13,7 +13,7 @@ LICENSE_FILE=	${WRKSRC}/COPYING
 
 BUILD_DEPENDS=	wayland-scanner:graphics/wayland
 
-USES=		tar:xz
+USES=		lib32 tar:xz
 NO_ARCH=	yes
 GNU_CONFIGURE=	yes
 CONFIGURE_ARGS=	--with-noarch-pkgconfigdir='$${prefix}/libdata/pkgconfig'

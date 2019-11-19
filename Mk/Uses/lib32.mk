@@ -35,7 +35,6 @@ _USES_POST+=		lib32
 ONLY_FOR_ARCHS=		amd64
 ONLY_FOR_ARCHS_REASON=	32-bit libraries only applicable on amd64
 LIBDIR=		${PREFIX}/lib32
-LDFLAGS+=	-L/usr/lib32 -Wl,-rpath,/usr/lib32 # ?
 . else
 LIBDIR=		${PREFIX}/lib
 . endif
@@ -56,14 +55,12 @@ PKGNAMEPREFIX:=	lib32-${PKGNAMEPREFIX}
 LIBS:=${LIBS:S|${LOCALBASE}/lib|${LOCALBASE}/lib32|g}
 .  endif
 
-#TODO: ICONV_LIB_PATH?
-
 .  if defined(BUILD_DEPENDS)
 BUILD_DEPENDS:=	${BUILD_DEPENDS:C|${LOCALBASE}/libdata/pkgconfig/([^:]+):([^/]*)/(.*)|${LOCALBASE}/libdata/pkgconfig32/\1:\2/lib32-\3|g}
 .  endif
 
 .  if defined(RUN_DEPENDS)
-# xorgproto
+# For whatever reason x11/libxcb has a runtime dependency on devel/libpthread-stubs
 RUN_DEPENDS:=	${RUN_DEPENDS:C|${LOCALBASE}/libdata/pkgconfig/([^:]+):([^/]*)/(.*)|${LOCALBASE}/libdata/pkgconfig32/\1:\2/lib32-\3|g}
 .  endif
 
@@ -87,8 +84,11 @@ BUILD_DEPENDS:=	${_LIB32_MDEP_TUPLE} ${BUILD_DEPENDS}
 RUN_DEPENDS:=	${_LIB32_MDEP_TUPLE} ${RUN_DEPENDS}
 .  endif
 
-.  for flags in CFLAGS CPPFLAGS
-${flags}:=	${${flags}:S|${LOCALBASE}/lib|${LOCALBASE}/lib32|g} -m32
+CFLAGS+=	-m32
+CPPFLAGS+=	-m32 # CXXFLAGS?
+
+.  for flags in CFLAGS CPPFLAGS LDFLAGS
+${flags}:=	${${flags}:C|${LOCALBASE}/lib/|${LOCALBASE}/lib32/|g:C|${LOCALBASE}/lib$$|${LOCALBASE}/lib32|g}
 .  endfor
 
 .  if !defined(USE_LDCONFIG32)
@@ -100,11 +100,14 @@ USE_LDCONFIG32:=${USE_LDCONFIG:S|${PREFIX}/lib$$|${LIBDIR}|g}
 .  endif
 .  undef USE_LDCONFIG
 
-PKG_CONFIG_PATH=${PREFIX}/libdata/pkgconfig32
-.  export-env PKG_CONFIG_PATH
+# TODO: the second entry should rather be something like /usr/libdata/pkgconfig32, but there is no such directory
+CONFIGURE_ENV+=	PKG_CONFIG_LIBDIR=${LOCALBASE}/libdata/pkgconfig32:/usr/libdata/pkgconfig
+
+# TODO: presumably we only need this to counteract settings from /usr/libdata/pkgconfig/zlib.pc
+LDFLAGS+=	-L/usr/lib32 -Wl,-rpath,/usr/lib32
 
 .  if defined(HAS_CONFIGURE) || defined(GNU_CONFIGURE)
-CONFIGURE_ARGS:=${CONFIGURE_ARGS:C|${LOCALBASE}/lib([^0-9a-z])|${LOCALBASE}/lib32\1|g:C|${LOCALBASE}/lib$$|${LOCALBASE}/lib32|g} --libdir=${LIBDIR}
+CONFIGURE_ARGS:=${CONFIGURE_ARGS:C|${LOCALBASE}/lib/|${LOCALBASE}/lib32/|g:C|${LOCALBASE}/lib$$|${LOCALBASE}/lib32|g} --libdir=${LIBDIR}
 .  elif ${USES:Mcmake*}
 CMAKE_ARGS+=-DCMAKE_INSTALL_LIBDIR:STRING="lib32"
 .  endif
@@ -113,9 +116,9 @@ _USES_stage+=	805:post-stage-lib32 935:post-plist-lib32
 
 post-stage-lib32:
 	${MKDIR} ${STAGEDIR}${PREFIX}/libdata/pkgconfig32
-	for p in libdata/pkgconfig lib32/pkgconfig; do \
-		if test -d ${STAGEDIR}${PREFIX}/$$p; then \
-			${FIND} ${STAGEDIR}${PREFIX}/$$p -name "*.pc" -exec ${MV} {} ${STAGEDIR}${PREFIX}/libdata/pkgconfig32 \;; \
+	for p in libdata/pkgconfig ${PREFIX}/libdata/pkgconfig ${PREFIX}/lib32/pkgconfig; do \
+		if test -d ${STAGEDIR}/$$p; then \
+			${FIND} ${STAGEDIR}/$$p -name "*.pc" -exec ${MV} {} ${STAGEDIR}${PREFIX}/libdata/pkgconfig32 \;; \
 		fi \
 	done
 

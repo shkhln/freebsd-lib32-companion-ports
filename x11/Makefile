@@ -154,6 +154,7 @@
     SUBDIR += lib32-libxcb
     SUBDIR += lib32-libxshmfence
     SUBDIR += lib32-virtualgl
+    SUBDIR += lib32-xcb-proto
     SUBDIR += lib32-xcb-util
     SUBDIR += lib32-xcb-util-keysyms
     SUBDIR += lib32-xorgproto
