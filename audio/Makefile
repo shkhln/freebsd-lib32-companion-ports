@@ -372,6 +372,7 @@
     SUBDIR += lash
     SUBDIR += lenticular-lv2
     SUBDIR += lib32-openal-soft
+    SUBDIR += lib32-faudio
     SUBDIR += liba52
     SUBDIR += libaacplus
     SUBDIR += libadplug
