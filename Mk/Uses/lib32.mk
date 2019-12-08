@@ -115,10 +115,12 @@ CMAKE_ARGS+=-DCMAKE_INSTALL_LIBDIR:STRING="lib32"
 _USES_stage+=	805:post-stage-lib32 935:post-plist-lib32
 
 post-stage-lib32:
-	${MKDIR} ${STAGEDIR}${PREFIX}/libdata/pkgconfig32
 	for p in libdata/pkgconfig ${PREFIX}/libdata/pkgconfig ${PREFIX}/lib32/pkgconfig; do \
 		if test -d ${STAGEDIR}/$$p; then \
-			${FIND} ${STAGEDIR}/$$p -name "*.pc" -exec ${MV} {} ${STAGEDIR}${PREFIX}/libdata/pkgconfig32 \;; \
+			${FIND} ${STAGEDIR}/$$p -name "*.pc" \
+				-exec ${MKDIR} ${STAGEDIR}${PREFIX}/libdata/pkgconfig32 \;  \
+				-exec ${MV} {} ${STAGEDIR}${PREFIX}/libdata/pkgconfig32 \;; \
+			${RMDIR} ${STAGEDIR}/$$p ; \
 		fi \
 	done
 
@@ -126,6 +128,8 @@ LIB32_PATTERN=	(^lib\/|^@post(un)?exec .* ldconfig|${PREFIX:S|/|\/|g}\/share\/li
 
 post-plist-lib32:
 	${SED} -E -e '/${LIB32_PATTERN}/d' -e '/^@/d' -e 's|^|${STAGEDIR}${PREFIX}/|g' ${TMPPLIST} | ${XARGS} ${RM}
+	${SED} -E -e '/${LIB32_PATTERN}/d' -e '/^@/d' -e 's|^|${STAGEDIR}${PREFIX}/|g' ${TMPPLIST} | ${XARGS} ${DIRNAME} |\
+		${SORT} -r -u | ${XARGS} -I{dir} -R 2 -S 10000 sh -c 'if test -d {dir}; then ${RMDIR} {dir} | true; fi'
 	${REINPLACE_CMD} -E -e 's|^libdata/pkgconfig/|libdata/pkgconfig32/|g' -e '/${LIB32_PATTERN}/!d' -e 's|^lib/|lib32/|g' ${TMPPLIST}
 
 . endif
