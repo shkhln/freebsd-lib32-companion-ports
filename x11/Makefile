@@ -152,6 +152,7 @@
     SUBDIR += lib32-libXvMC
     SUBDIR += lib32-libXxf86vm
     SUBDIR += lib32-libxcb
+    SUBDIR += lib32-libxkbcommon
     SUBDIR += lib32-libxshmfence
     SUBDIR += lib32-virtualgl
     SUBDIR += lib32-xcb-proto

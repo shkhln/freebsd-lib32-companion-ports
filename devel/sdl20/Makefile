@@ -14,7 +14,7 @@ LICENSE=	ZLIB
 LICENSE_FILE=	${WRKSRC}/COPYING.txt
 
 GNU_CONFIGURE=	yes
-USES=		gmake iconv libtool localbase:ldflags pathfix pkgconfig
+USES=		gmake iconv lib32 libtool localbase:ldflags pathfix pkgconfig
 USE_LDCONFIG=	yes
 
 CONFIGURE_ARGS+=	--disable-arts \
@@ -223,7 +223,11 @@ CONFIGURE_ARGS+=	--enable-video-x11 \
 			--enable-video-x11-xshape \
 			--enable-video-x11-vm
 USES+=		xorg
+.if defined(USE_LIB32)
+USE_XORG+=	xinerama xcursor xi xrandr xxf86vm xext
+.else
 USE_XORG+=	xinerama xcursor xi xrandr xscrnsaver xxf86vm xext
+.endif
 .else
 CONFIGURE_ARGS+=	--disable-video-x11 \
 			--disable-x11-shared \
@@ -280,6 +284,10 @@ post-patch:
 		${WRKSRC}/configure ${WRKSRC}/src/video/SDL_blit_A.c
 
 post-install:
-	@${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libSDL2.so
+	@${STRIP_CMD} ${STAGEDIR}${LIBDIR}/libSDL2.so
+.if defined(USE_LIB32)
+	${REINPLACE_CMD} -e 's|bin/sdl2-config|bin/lib32-sdl2-config|g' ${TMPPLIST}
+	${MV} ${STAGEDIR}${PREFIX}/bin/sdl2-config ${STAGEDIR}${PREFIX}/bin/lib32-sdl2-config
+.endif
 
 .include <bsd.port.post.mk>

@@ -21,11 +21,8 @@ ONLY_FOR_ARCHS=	amd64 i386
 
 BUILD_DEPENDS=	${LOCALBASE}/bin/flex:textproc/flex \
 		prelink:sysutils/prelink
-
-LIB_DEPENDS=	libxml2.so:textproc/libxml2
-.if !defined(USE_LIB32)
-LIB_DEPENDS+=	libFAudio.so:audio/faudio
-.endif
+LIB_DEPENDS=	libFAudio.so:audio/faudio \
+		libxml2.so:textproc/libxml2
 
 USES=		bison desktop-file-utils gmake lib32 localbase pkgconfig shebangfix tar:xz
 

@@ -360,6 +360,7 @@
     SUBDIR += lame
     SUBDIR += lash
     SUBDIR += lib32-openal-soft
+    SUBDIR += lib32-faudio
     SUBDIR += liba52
     SUBDIR += libaacplus
     SUBDIR += libadplug

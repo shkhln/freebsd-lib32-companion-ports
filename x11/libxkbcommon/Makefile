@@ -15,7 +15,7 @@ LICENSE_FILE=	${WRKSRC}/LICENSE
 
 RUN_DEPENDS=	xkeyboard-config>0:x11/xkeyboard-config
 
-USES=		bison meson pkgconfig tar:xz xorg
+USES=		bison meson pkgconfig tar:xz lib32 xorg
 USE_XORG=	xcb
 MESON_ARGS=	-Denable-docs=false \
 		-Denable-wayland=false \

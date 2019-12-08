@@ -10,15 +10,19 @@ COMMENT=	Accuracy-focused XAudio reimplementation
 LICENSE=	ZLIB
 LICENSE_FILE=	${WRKSRC}/LICENSE
 
+.if !defined(USE_LIB32)
 LIB_DEPENDS=	libavcodec.so:multimedia/ffmpeg
+.endif
 
-USES=		cmake compiler:c11 sdl
+USES=		cmake compiler:c11 lib32 sdl
 USE_GITHUB=	yes
 GH_ACCOUNT=	FNA-XNA
 USE_LDCONFIG=	yes
 USE_SDL=	sdl2
 
+.if !defined(USE_LIB32)
 CMAKE_ON=	FFMPEG
+.endif
 
 PLIST_SUB=	SOVERSION=${DISTVERSION:S,., ,g:[1..2]:ts.}
 

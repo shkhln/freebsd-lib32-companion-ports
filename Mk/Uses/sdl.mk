@@ -101,8 +101,13 @@ MAKE_ENV+=	SDL_CONFIG=${SDL_CONFIG}
 .endif
 
 .if ${_USE_SDL:Msdl2}
+.if defined(USE_LIB32)
+SDL2_CONFIG?=	${LOCALBASE}/bin/lib32-sdl2-config
+BUILD_DEPENDS+=	${SDL2_CONFIG}:devel/lib32-sdl20
+.else
 SDL2_CONFIG?=	${LOCALBASE}/bin/sdl2-config
 BUILD_DEPENDS+=	${SDL2_CONFIG}:devel/sdl20
+.endif
 CONFIGURE_ENV+=	SDL2_CONFIG=${SDL2_CONFIG}
 MAKE_ENV+=	SDL2_CONFIG=${SDL2_CONFIG}
 .endif
