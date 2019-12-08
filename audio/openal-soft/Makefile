@@ -11,7 +11,9 @@ COMMENT=	Software implementation of the OpenAL specification
 LICENSE=	LGPL20+
 LICENSE_FILE=	${WRKSRC}/COPYING
 
+.if !defined(USE_LIB32)
 LIB_DEPENDS=	libmysofa.so:audio/libmysofa
+.endif
 
 USES=		cmake compiler:c++11-lang lib32 tar:bzip2
 USE_LDCONFIG=	yes
@@ -59,6 +61,9 @@ SNDIO_CMAKE_BOOL=	ALSOFT_BACKEND_SNDIO ALSOFT_REQUIRE_SNDIO
 post-patch:
 	@${REINPLACE_CMD} 's|/etc/openal|${ETCDIR}|' \
 		${WRKSRC}/alc/alconfig.cpp
+.if defined(USE_LIB32)
+	${REINPLACE_CMD} -e 's|find_package(MySOFA)||' ${WRKSRC}/CMakeLists.txt
+.endif
 
 post-install-EXAMPLES-on:
 	(cd ${WRKSRC}/examples && ${COPYTREE_SHARE} . \
