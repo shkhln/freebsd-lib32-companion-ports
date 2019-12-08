@@ -54,4 +54,7 @@ post-install:
 	@cd ${WRKSRC}/src && ${SETENV} DESTDIR=${STAGEDIR} \
 		${MAKE_CMD} install-pkgconfigDATA install-glHEADERS install-glxHEADERS
 
+#TODO: mesa-libs/Makefile.common?
+.if !defined(USE_LIB32)
 .include <bsd.port.post.mk>
+.endif
