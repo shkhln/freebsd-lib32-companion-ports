@@ -78,4 +78,7 @@ USE_GCC=	yes
 
 .include "${MASTERDIR}/Makefile.targets"
 
+#TODO: mesa-libs/Makefile.common?
+.if !defined(USE_LIB32)
 .include <bsd.port.post.mk>
+.endif
