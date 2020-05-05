@@ -47,7 +47,7 @@ _LIB32_MK_POST_INCLUDED=	yes
 . if defined(USE_LIB32)
 PKGNAMEPREFIX:=	lib32-${PKGNAMEPREFIX}
 
-.  if ${USES:Mlocalbase*}
+.  if defined(USES) && ${USES:Mlocalbase*}
 .   include "${USESDIR}/localbase.mk"
 .  endif
 
@@ -108,7 +108,7 @@ LDFLAGS+=	-L/usr/lib32 -Wl,-rpath,/usr/lib32
 
 .  if defined(HAS_CONFIGURE) || defined(GNU_CONFIGURE)
 CONFIGURE_ARGS:=${CONFIGURE_ARGS:C|${LOCALBASE}/lib/|${LOCALBASE}/lib32/|g:C|${LOCALBASE}/lib$$|${LOCALBASE}/lib32|g} --libdir=${LIBDIR}
-.  elif ${USES:Mcmake*}
+.  elif defined(USES) && ${USES:Mcmake*}
 CMAKE_ARGS+=-DCMAKE_INSTALL_LIBDIR:STRING="lib32"
 .  endif
 
