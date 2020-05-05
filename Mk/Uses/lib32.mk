@@ -34,9 +34,6 @@ _USES_POST+=		lib32
 . if defined(USE_LIB32)
 ONLY_FOR_ARCHS=		amd64
 ONLY_FOR_ARCHS_REASON=	32-bit libraries only applicable on amd64
-LIBDIR=		${PREFIX}/lib32
-. else
-LIBDIR=		${PREFIX}/lib
 . endif
 
 .endif // _LIB32_MK_INCLUDED

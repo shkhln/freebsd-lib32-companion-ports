@@ -1368,6 +1368,12 @@ PKGCOMPATDIR?=		${LOCALBASE}/lib/compat/pkg
 .endfor
 
 .if defined(USE_LIB32)
+LIBDIR=	${PREFIX}/lib32
+.else
+LIBDIR=	${PREFIX}/lib
+.endif
+
+.if defined(USE_LIB32)
 .include "${PORTSDIR}/Mk/Uses/lib32.mk"
 .endif
 
