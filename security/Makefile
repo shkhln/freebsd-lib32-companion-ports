@@ -277,7 +277,6 @@
     SUBDIR += lib32-gnutls
     SUBDIR += lib32-libtasn1
     SUBDIR += lib32-nettle
-    SUBDIR += lib32-openssl
     SUBDIR += lib32-p11-kit
     SUBDIR += lib32-trousers
     SUBDIR += libadacrypt
