@@ -97,19 +97,51 @@ USE_LDCONFIG32:=${USE_LDCONFIG:S|${PREFIX}/lib$$|${LIBDIR}|g}
 .  endif
 .  undef USE_LDCONFIG
 
-# TODO: the second entry should rather be something like /usr/libdata/pkgconfig32, but there is no such directory
-CONFIGURE_ENV+=	PKG_CONFIG_LIBDIR=${LOCALBASE}/libdata/pkgconfig32:/usr/libdata/pkgconfig
+CONFIGURE_ENV+=	PKG_CONFIG_LIBDIR=${WRKDIR}/lib32-pkgconfig:${LOCALBASE}/libdata/pkgconfig32
+LDFLAGS+=	-Wl,-rpath-link,/usr/lib32
 
-# TODO: presumably we only need this to counteract settings from /usr/libdata/pkgconfig/zlib.pc
-LDFLAGS+=	-L/usr/lib32 -Wl,-rpath,/usr/lib32
+.  if defined(USES) && ${USES:Mmeson*}
 
-.  if defined(HAS_CONFIGURE) || defined(GNU_CONFIGURE)
+_i686_MESON_CROSS_FILE_CONTENT= \
+ "[binaries]"                                                        "${.newline}" \
+ "c           = '${CC}'"                                             "${.newline}" \
+ "cpp         = '${CXX}'"                                            "${.newline}" \
+ "ar          = '/usr/bin/ar'"                                       "${.newline}" \
+ "strip       = '${STRIP_CMD}'"                                      "${.newline}" \
+ "pkgconfig   = '${LOCALBASE}/bin/pkgconf'"                          "${.newline}" \
+ "llvm-config = '${LOCALBASE}/bin/lib32-llvm-config${LLVM_DEFAULT}'" "${.newline}" \
+                                                                     "${.newline}" \
+ "[properties]"                                                      "${.newline}" \
+ "c_args            = ['-m32', '-I${LOCALBASE}/include']"            "${.newline}" \
+ "c_link_args       = ['-m32', '-Wl,-znotext']"                      "${.newline}" \
+ "cpp_args          = ['-m32', '-I${LOCALBASE}/include']"            "${.newline}" \
+ "cpp_link_args     = ['-m32', '-Wl,-znotext']"                      "${.newline}" \
+ "needs_exe_wrapper = false"                                         "${.newline}" \
+                                                                     "${.newline}" \
+ "[host_machine]"                                                    "${.newline}" \
+ "system     = 'freebsd'"                                            "${.newline}" \
+ "cpu_family = 'x86'"                                                "${.newline}" \
+ "cpu        = 'i686'"                                               "${.newline}" \
+ "endian     = 'little'"                                             "${.newline}"
+
+MESON_ARGS+=--cross-file ${WRKDIR}/i686-freebsd.meson --libdir="${PREFIX}/lib32"
+
+.  elif (defined(HAS_CONFIGURE) || defined(GNU_CONFIGURE))
 CONFIGURE_ARGS:=${CONFIGURE_ARGS:C|${LOCALBASE}/lib/|${LOCALBASE}/lib32/|g:C|${LOCALBASE}/lib$$|${LOCALBASE}/lib32|g} --libdir=${LIBDIR}
 .  elif defined(USES) && ${USES:Mcmake*}
 CMAKE_ARGS+=-DCMAKE_INSTALL_LIBDIR:STRING="lib32"
 .  endif
 
-_USES_stage+=	805:post-stage-lib32 935:post-plist-lib32
+_USES_configure+=	305:pre-configure-lib32
+_USES_stage+=		805:post-stage-lib32 935:post-plist-lib32
+
+pre-configure-lib32:
+.  if defined(USES) && ${USES:Mmeson*}
+	@${ECHO_CMD} ${_i686_MESON_CROSS_FILE_CONTENT} | ${SED} -e 's/^ //' -e 's/ $$//' > ${WRKDIR}/i686-freebsd.meson
+.  endif
+	@${MKDIR} ${WRKDIR}/lib32-pkgconfig
+	@${CP} /usr/libdata/pkgconfig/zlib.pc ${WRKDIR}/lib32-pkgconfig
+	@${REINPLACE_CMD} -e 's|libdir=$${exec_prefix}/lib|libdir=$${exec_prefix}/lib32|' ${WRKDIR}/lib32-pkgconfig/zlib.pc
 
 post-stage-lib32:
 	for p in libdata/pkgconfig ${PREFIX}/libdata/pkgconfig ${PREFIX}/lib32/pkgconfig; do \
