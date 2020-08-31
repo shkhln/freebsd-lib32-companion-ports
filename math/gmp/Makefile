@@ -51,4 +51,16 @@ CONFIGURE_ENV+=	ABI="32"
 post-extract:
 	@${RM} ${WRKSRC}/doc/gmp.info*
 
+post-patch:
+	${REINPLACE_CMD} 's/$$(exec_prefix)\/include/$$\(includedir\)/' ${WRKSRC}/Makefile.in
+
+.if defined(USE_LIB32)
+CONFIGURE_ARGS+=--includedir=${PREFIX}/include/lib32-gmp
+CONFIGURE_ENV+=	ABI="32" # ?
+
+post-install:
+	${REINPLACE_CMD} -E -e 's|^include/gmp.h|include/lib32-gmp/gmp.h|g' -e 's|^include/gmpxx.h|include/lib32-gmp/gmpxx.h|g' ${TMPPLIST}
+
+.endif
+
 .include <bsd.port.post.mk>

@@ -5,5 +5,4 @@ MASTERDIR=	${.CURDIR}/../nettle
 
 .include "${MASTERDIR}/Makefile"
 
-#TODO: Synth
-CONFIGURE_ENV+=     LD_32_LIBRARY_PATH=${LOCALBASE}/lib32
+CONFIGURE_ARGS+=--with-include-path=${LOCALBASE}/include/lib32-gmp

@@ -5,4 +5,4 @@ MASTERDIR=	${.CURDIR}/../gmp
 
 .include "${MASTERDIR}/Makefile"
 
-CONFIGURE_ENV+=ABI="32"
+LIB32_PATTERN:=	(^include\/lib32-gmp\/(gmp\.h|gmpxx\.h)$$$|${LIB32_PATTERN})
